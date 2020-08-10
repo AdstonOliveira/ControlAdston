@@ -11,6 +11,8 @@
 |
 */
 
+use App\Model\PessoaFisica;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -21,3 +23,13 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/ordem_servico', function(){
     return view('assistencia.ordem_servico');
 })->name('os');
+
+Route::group(['middleware' => ['auth']], function () {
+
+    Route::group(['prefix' => 'cliente'], function () {
+        Route::get("novo", "ClienteController@create")->name('cliente.novo');
+    });
+
+
+
+});
