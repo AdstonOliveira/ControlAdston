@@ -1,6 +1,17 @@
 @extends('layouts.app')
 @section('content')
 <div class="container">
+    <div class="row pb-2">
+        <div class="col-md-12 col-sm-12">
+            <div class="card card-body">
+                <div class="col-md-12 col-m-12">
+                    <button type="button" class="btn btn-primary">Nova OS</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <div class="row justify-content-around">
         <div class="col-md-12">
             <div class="card">
