@@ -82,4 +82,15 @@ class CidadeController extends Controller
     {
         //
     }
+
+    public function cidadesEstado($id){
+        $cidades = Cidade::where('state_id', $id)->get();
+
+        $option = "";
+        foreach($cidades as $cidade){
+            $option .= "<option value='$cidade->id'>$cidade->name</option>";
+        }
+
+        return $option;
+    }
 }

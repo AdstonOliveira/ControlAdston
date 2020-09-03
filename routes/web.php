@@ -28,8 +28,11 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::group(['prefix' => 'cliente'], function () {
         Route::get("novo", "ClienteController@create")->name('cliente.novo');
+        Route::post("novo", "ClienteController@store")->name('cliente.novo');
     });
 
 
 
 });
+
+Route::get('cidades/{id}', "CidadeController@cidadesEstado")->name('cidades.nome');

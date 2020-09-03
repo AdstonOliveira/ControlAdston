@@ -34,7 +34,8 @@
                     aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
+                @guest
+                @else
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
@@ -50,7 +51,7 @@
                             </a>
 
                             <div class="dropdown-menu" aria-labelledby="dropdowncliente">
-                                <a class="dropdown-item" href="#">Novo cliente</a>
+                                <a class="dropdown-item" href="{{route('cliente.novo')}}">Novo cliente</a>
                                 <a class="dropdown-item" href="#">Lista Cliente</a>
                                 <a class="dropdown-item" href="#">Gerencial</a>
                             </div>
@@ -103,7 +104,7 @@
                         </li>
 
                     </ul>
-
+                    @endguest
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->

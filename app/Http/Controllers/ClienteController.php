@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Cidade;
 use App\Cliente;
+use App\Estado;
 use App\TipoCliente;
+use App\TipoEndereco;
 use Illuminate\Http\Request;
 
 class ClienteController extends Controller
@@ -26,7 +29,11 @@ class ClienteController extends Controller
     public function create()
     {
         $tipo_cliente = TipoCliente::all();
-        return view('cliente.index', compact('tipo_cliente'));
+        $tipos_endereco = TipoEndereco::all();
+        $estados = Estado::all();
+        $cidade_default = Cidade::where('state_id',25)->get();
+
+        return view('cliente.index', compact('tipo_cliente', 'tipos_endereco','estados','cidade_default'));
     }
 
     /**
@@ -37,7 +44,11 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $dados = $request->all();
+        dd($request->all());
+        if($request->has('tipo_cliente')){
+            dd($dados['rg']);
+        }
     }
 
     /**
