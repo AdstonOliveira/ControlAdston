@@ -59,69 +59,81 @@
                 </div>
             </div>
 
-            <div class="row pt-2 pb-2" id="endereco">
-                <div class="col-md-2 col-sm-12">
-                    <label for="tipo_endereco">Tipo de endereço</label>
-                    <select name="tipo_endereco" id="tipo_endereco" class="form-control">
-                        <option value="-1" disabled selected>Tipo Endereço</option>
-                        @foreach ($tipos_endereco as $tipo)
-                            <option value="{{ $tipo->id }}">{{ $tipo->tipo }}</option>
-                        @endforeach
-                    </select>
-                    <small id="h_endereco" class="form-text text-muted">Tipo endereço</small>
-                </div>
+            <div class="row pt-2 pb-2 ml-1" id="endereco">
 
-
-                <div class="col-md-2 col-sm-12">
-                    <label for="cep">CEP</label>
-                    <div class="input-group mb-3">
-
-                        <input name="cep" id="cep" type="text" class="form-control" placeholder="CEP" aria-label="cep"
-                            aria-describedby="btn-cep">
-
-                        <div class="input-group-append">
-                            <button type="button" class="input-group-text" id="btn-cep">
-                                <i class="fa fa-search" aria-hidden="true" title="Clique aqui para realizar a busca no site do correios"></i>
-                            </button>
-                        </div>
+                <div class="row">
+                    <div class="col-md-3 col-sm-12">
+                        <label for="tipo_endereco">Tipo de endereço</label>
+                        <select name="tipo_endereco" id="tipo_endereco" class="form-control">
+                            <option value="-1" disabled selected>Tipo Endereço</option>
+                            @foreach ($tipos_endereco as $tipo)
+                                <option value="{{ $tipo->id }}">{{ $tipo->tipo }}</option>
+                            @endforeach
+                        </select>
+                        <small id="h_endereco" class="form-text text-muted">Tipo endereço</small>
                     </div>
 
+
+                    <div class="col-md-2 col-sm-12">
+                        <label for="cep">CEP</label>
+                        <div class="input-group mb-3">
+
+                            <input name="cep" id="cep" type="text" class="form-control" placeholder="CEP" aria-label="cep"
+                                aria-describedby="btn-cep">
+
+                            <div class="input-group-append">
+                                <button type="button" class="input-group-text" id="btn-cep">
+                                    <i class="fa fa-search" aria-hidden="true"
+                                        title="Clique aqui para realizar a busca no site do correios"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
 
-                <div class="col-md-2 col-sm-12">
+                <div class="row">
+                    <div class="col-md-2 col-sm-12">
+                        <label for="estado">Estado</label>
+                        <select name="estado" id="estado" class="form-control">
+                            <option value="-1">Estado</option>
 
-                    <label for="estado">Estado</label>
-                    <select name="estado" id="estado" class="form-control">
-                        <option value="-1">Estado</option>
+                            @foreach ($estados as $estado)
+                                <option value="{{ $estado->id }}" {{ $estado->id == 25 ? ' selected' : '' }}>
+                                    {{ $estado->abbreviation }}
+                                </option>
+                            @endforeach
 
-                        @foreach ($estados as $estado)
-                            <option value="{{ $estado->id }}" {{ $estado->id == 25 ? ' selected' : '' }}>{{ $estado->name }}
-                            </option>
-                        @endforeach
+                        </select>
+                        <small id="h_estado" class="form-text text-muted">Selecione o estado</small>
+                    </div>
 
-                    </select>
-                    <small id="h_estado" class="form-text text-muted">Selecione o estado</small>
+                    <div class="col-md-2 col-sm-12">
+                        <label for="cidade">Cidade</label>
+                        <select name="cidade" id="cidade" class="form-control">
+
+                            @foreach ($cidade_default as $cidade)
+                                <option value="{{ $cidade->id }}">{{ $cidade->name }}</option>
+                            @endforeach
+
+                        </select>
+                        <small id="h_cidade" class="form-text text-muted">Selecione a cidade</small>
+                    </div>
+
+                    <div class="col-md-4 col-sm-12">
+                        <label for="rua">Logradouro</label>
+                        <input type="text" name="rua" id="rua" class="form-control" readonly>
+
+                        <small id="h_rua" class="form-text text-muted">Endereço. Ex:Rua, Av. ...</small>
+                    </div>
+
+                    <div class="col-md-2 col-sm-12">
+                        <label for="num">Num</label>
+                        <input type="text" name="num" id="num" class="form-control">
+
+                        <small id="h_num" class="form-text text-muted">Numero</small>
+                    </div>
                 </div>
-
-                <div class="col-md-2 col-sm-12">
-                    <label for="cidade">Cidade</label>
-                    <select name="cidade" id="cidade" class="form-control">
-
-                        @foreach ($cidade_default as $cidade)
-                            <option value="{{ $cidade->id }}">{{ $cidade->name }}</option>
-                        @endforeach
-
-                    </select>
-                    <small id="h_cidade" class="form-text text-muted">Selecione a cidade</small>
-                </div>
-
-                <div class="col-md-3 col-sm-12">
-                    <label for="rua">Logradouro</label>
-                    <input type="text" name="rua" id="rua" class="form-control" readonly>
-
-                    <small id="h_estado" class="form-text text-muted">Endereço. Ex:Rua, Av. ...</small>
-                </div>
-
 
 
             </div>
@@ -139,7 +151,6 @@
                 $("#cep").mask('99.999-999', {
                     reverse: true
                 })
-
 
                 $("#tipo_cliente ").change(function() {
 
@@ -206,41 +217,102 @@
             })
 
             $("#estado").change(function() {
+                console.log("On Change");
+                let a = Promise.resolve(preencheCidade())
+            })
+
+            async function preencheCidade() {
                 let id = $("#estado option:selected").val()
                 let route = "{{ url('cidades') }}"
                 route += "/" + id
 
                 $.get(route, {})
-
                     .done(function(data) {
                         $("#cidade").empty();
                         $("#cidade").append(data)
                     })
+
+                console.log("Preencheu")
+            }
+
+
+            $("#btn-cep").click(async function() {
+
+                let cep = $("#cep").val().replace(/[^0-9]/, '');
+
+                try {
+                    const response = await
+                    $.ajax({
+                        url: 'https://viacep.com.br/ws/' + cep + "/json",
+                        dataType: 'jsonp',
+                        crossDomain: true,
+                        contentType: "application/json",
+                        statusCode: {
+                            200: function(data) {
+                                    console.log(data)
+                                } // Ok
+                                ,
+                            400: function(msg) {
+                                    console.log(msg);
+                                } // Bad Request
+                                ,
+                            404: function(msg) {
+                                console.log("CEP não encontrado!!");
+                            } // Not Found
+                        }
+
+                    })
+
+                    if(response.erro){
+                        console.log(response.erro)
+                        return
+                    }
+
+                    if( $("#estado option:selected").text().trim() != response.uf ) {
+                        let estados = $("#estado option")
+                        console.log("diferente tem que preencher")
+
+                        $(estados).each(function(i, e) {
+                            if ($(this).text().trim() == response.uf) {
+                                $("#estado").val($(this).val())
+                                $(this).attr("selected", "selected")
+                                return true;
+                            }
+                        })
+
+                        let a = await Promise.resolve(preencheCidade()).then(() => console.log(
+                            "Ja preencheu aqui"))
+
+                        Promise.all([a])
+                            .then(
+                                function() {
+                                    setTimeout(function(){preencheCampo(response)}, 1000)
+                                })
+                    } else {
+                        preencheCampo(response)
+                    }
+
+                } catch (error) {
+                    console.log(error)
+                }
+
+
             })
 
-            $("#btn-cep").click(function() {
-                let cep = $("#cep").val().replace(/[^0-9]/, '');
-                console.log(cep)
-                $.ajax({
-                    url: 'https://viacep.com.br/ws/' + cep+"/json",
-                    dataType: 'jsonp',
-                    crossDomain: true,
-                    contentType: "application/json",
-                    statusCode: {
-                        200: function(data) {
-                                $("#rua").val(data.logradouro)
-                            } // Ok
-                            ,
-                        400: function(msg) {
-                                console.log(msg);
-                            } // Bad Request
-                            ,
-                        404: function(msg) {
-                            console.log("CEP não encontrado!!");
-                        } // Not Found
+            async function preencheCampo(data) {
+                $("#rua").val(data.logradouro)
+                console.log("Entrou aqui")
+                let options = $("#cidade option")
+
+                $(options).each(function(i, e) {
+
+                    if ( $(this).text().trim() == data.localidade ) {
+                        $("#cidade").val($(e).val())
+                        $(e).attr("selected", "selected")
                     }
-                });
-            })
+
+                })
+            }
 
         </script>
     @endsection

@@ -168,6 +168,9 @@
             </div>
         </main>
     </div>
+    {{-- @include('sweetalert::alert') --}}
+    {{-- @include('sweetalert::alert', ['cdn' => "https://cdn.jsdelivr.net/npm/sweetalert2@9"]) --}}
+
     <script src="{{asset('js/jmask/dist/jquery.mask.js')}}"></script>
     @yield('scripts')
 
