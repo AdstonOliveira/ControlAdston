@@ -7,7 +7,9 @@ use App\Cliente;
 use App\Estado;
 use App\TipoCliente;
 use App\TipoEndereco;
+use App\TipoTelefone;
 use Illuminate\Http\Request;
+use SweetAlert;
 
 class ClienteController extends Controller
 {
@@ -32,8 +34,8 @@ class ClienteController extends Controller
         $tipos_endereco = TipoEndereco::all();
         $estados = Estado::all();
         $cidade_default = Cidade::where('state_id',25)->get();
-
-        return view('cliente.index', compact('tipo_cliente', 'tipos_endereco','estados','cidade_default'));
+        $tipos_telefone = TipoTelefone::all();
+        return view('cliente.index', compact('tipo_cliente', 'tipos_endereco','estados','cidade_default', 'tipos_telefone'));
     }
 
     /**

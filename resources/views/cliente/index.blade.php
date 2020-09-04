@@ -59,7 +59,7 @@
                 </div>
             </div>
 
-            <div class="row pt-2 pb-2 ml-1" id="endereco">
+            <div class="row pt-2 pb-2 ml-1" >
 
                 <div class="row">
                     <div class="col-md-3 col-sm-12">
@@ -79,7 +79,7 @@
                         <div class="input-group mb-3">
 
                             <input name="cep" id="cep" type="text" class="form-control" placeholder="CEP" aria-label="cep"
-                                aria-describedby="btn-cep">
+                                aria-describedby="btn-cep" disabled>
 
                             <div class="input-group-append">
                                 <button type="button" class="input-group-text" id="btn-cep">
@@ -92,7 +92,8 @@
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="row pt-2" id="endereco" style="display:none">
+
                     <div class="col-md-2 col-sm-12">
                         <label for="estado">Estado</label>
                         <select name="estado" id="estado" class="form-control">
@@ -122,7 +123,7 @@
 
                     <div class="col-md-4 col-sm-12">
                         <label for="rua">Logradouro</label>
-                        <input type="text" name="rua" id="rua" class="form-control" readonly>
+                        <input type="text" name="rua" id="rua" class="form-control">
 
                         <small id="h_rua" class="form-text text-muted">Endereço. Ex:Rua, Av. ...</small>
                     </div>
@@ -138,181 +139,38 @@
 
             </div>
 
+            <div class="row pt-2 ml-2 mr-2" id="div-telefone">
+                <div class="row">
+                    <div class="col-md-2 col-sm-12">
+                        <label for="tipo_telefone">Tipo Telefone</label>
+                        <select name="tipo_telefone" id="tipo_telefone" class="form-control text-center" required>
+                            <option value="-1" disabled selected>Selecione</option>
+                            @foreach ($tipos_telefone as $tipo)
+                                <option value="{{ $tipo->id }}">{{ $tipo->tipo }}</option>
+                            @endforeach
+                        </select>
+                        <small id="helpTipoTelefone" class="form-text text-muted">Selecione o tipo de telefone para
+                            adicionar</small>
+                    </div>
+
+                    <div class="col-md-2 col-sm-12">
+                        <label for="">Clique para adicionar</label>
+                        <button class="btn btn-outline-info" id="btn-telefone" type="button">+</button>
+                    </div>
+                </div>
+                <div class="row" id="dados_telefone" style="display:none">
+
+                </div>
+
+            </div>
+
 
             <button type="submit" name="" id="" class="btn btn-primary btn-lg btn-block">Enviar</button>
         </form>
 
     @endsection
+
     @section('scripts')
-
-        <script>
-            $(document).ready(function() {
-
-                $("#cep").mask('99.999-999', {
-                    reverse: true
-                })
-
-                $("#tipo_cliente ").change(function() {
-
-                    let selecionado = $("#tipo_cliente option:selected").val();
-
-                    if ($("#razao").is(':visible')) {
-                        $("#razao").hide();
-                    }
-
-                    if (selecionado == 1) {
-                        $("#label_nome").empty();
-                        $("#label_nome").append("Nome");
-                        $("#nome").attr("placeholder", "Nome do cliente");
-                        $("#h_nome").empty();
-                        $("#h_nome").append("Insira o nome do cliente");
-
-                        $("#label_sobrenome").empty();
-                        $("#label_sobrenome").append("Sobrenome");
-
-                        if (!$("#col_sobrenome").is(":visible")) {
-                            $("#sobrenome").prop('disabled', false)
-                            $("#col_sobrenome").fadeIn()
-                        }
-
-                        $("#label_doc").empty();
-                        $("#label_doc").append("CPF")
-                        $("#cpf").mask('000.000.000-00', {
-                            reverse: true
-                        })
-
-                        $("#label_rg").empty();
-                        $("#label_rg").append("RG")
-                    } else if (selecionado == 2 || selecionado == 3) {
-
-                        $("#label_nome").empty();
-                        $("#label_nome").append("Nome fantasia");
-                        $("#nome").attr("placeholder", "Nome fantasia");
-                        $("#h_nome").empty();
-                        $("#h_nome").append("Insira o nome fantasia da empresa");
-
-                        $("#sobrenome").attr('disabled', 'disabled')
-                        $("#col_sobrenome").hide()
-
-                        $("#label_doc").empty();
-                        $("#label_doc").append("CNPJ")
-
-                        $("#cpf").mask('00.000.000/0000-00', {
-                            reverse: true
-                        })
-
-                        $("#razao_social").prop('disabled', false);
-                        $("#razao").fadeIn("fast");
-
-                        $("#label_rg").empty();
-                        $("#label_rg").append("IE")
-                    }
-
-                    if (selecionado != -1) {
-                        $("#row_cliente").fadeIn("slow")
-                        $("#documentos").fadeIn("slow")
-                    }
-
-                })
-            })
-
-            $("#estado").change(function() {
-                console.log("On Change");
-                let a = Promise.resolve(preencheCidade())
-            })
-
-            async function preencheCidade() {
-                let id = $("#estado option:selected").val()
-                let route = "{{ url('cidades') }}"
-                route += "/" + id
-
-                $.get(route, {})
-                    .done(function(data) {
-                        $("#cidade").empty();
-                        $("#cidade").append(data)
-                    })
-
-                console.log("Preencheu")
-            }
-
-
-            $("#btn-cep").click(async function() {
-
-                let cep = $("#cep").val().replace(/[^0-9]/, '');
-
-                try {
-                    const response = await
-                    $.ajax({
-                        url: 'https://viacep.com.br/ws/' + cep + "/json",
-                        dataType: 'jsonp',
-                        crossDomain: true,
-                        contentType: "application/json",
-                        statusCode: {
-                            200: function(data) {
-                                    console.log(data)
-                                } // Ok
-                                ,
-                            400: function(msg) {
-                                    console.log(msg);
-                                } // Bad Request
-                                ,
-                            404: function(msg) {
-                                console.log("CEP não encontrado!!");
-                            } // Not Found
-                        }
-
-                    })
-
-                    if(response.erro){
-                        console.log(response.erro)
-                        return
-                    }
-
-                    if( $("#estado option:selected").text().trim() != response.uf ) {
-                        let estados = $("#estado option")
-                        console.log("diferente tem que preencher")
-
-                        $(estados).each(function(i, e) {
-                            if ($(this).text().trim() == response.uf) {
-                                $("#estado").val($(this).val())
-                                $(this).attr("selected", "selected")
-                                return true;
-                            }
-                        })
-
-                        let a = await Promise.resolve(preencheCidade()).then(() => console.log(
-                            "Ja preencheu aqui"))
-
-                        Promise.all([a])
-                            .then(
-                                function() {
-                                    setTimeout(function(){preencheCampo(response)}, 1000)
-                                })
-                    } else {
-                        preencheCampo(response)
-                    }
-
-                } catch (error) {
-                    console.log(error)
-                }
-
-
-            })
-
-            async function preencheCampo(data) {
-                $("#rua").val(data.logradouro)
-                console.log("Entrou aqui")
-                let options = $("#cidade option")
-
-                $(options).each(function(i, e) {
-
-                    if ( $(this).text().trim() == data.localidade ) {
-                        $("#cidade").val($(e).val())
-                        $(e).attr("selected", "selected")
-                    }
-
-                })
-            }
-
+        <script src="{{ asset('js/cliente_view.js') }}">
         </script>
     @endsection

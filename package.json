@@ -25,6 +25,7 @@
     },
     "dependencies": {
         "font-awesome": "^4.7.0",
-        "jquery-mask-plugin": "^1.14.16"
+        "jquery-mask-plugin": "^1.14.16",
+        "sweetalert": "^2.1.2"
     }
 }
