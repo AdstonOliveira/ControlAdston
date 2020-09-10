@@ -11,6 +11,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
+
     <script src="{{ asset('js/app.js') }}" ></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
@@ -25,6 +26,7 @@
 </head>
 
 <body>
+    @include('sweet::alert')
 
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
@@ -171,11 +173,18 @@
             </div>
         </main>
     </div>
-    {{-- @include('sweet::alert') --}}
+    @include('sweet::alert')
     {{-- @include('sweetalert::alert') --}}
     {{-- @include('sweetalert::alert', ['cdn' => "https://cdn.jsdelivr.net/npm/sweetalert2@9"]) --}}
 
     <script src="{{asset('js/jmask/dist/jquery.mask.js')}}"></script>
+
+    @if (Session::has('sweet_alert.alert'))
+        <script>
+            swal({!! Session::get('sweet_alert.alert') !!});
+        </script>
+    @endif
+
     @yield('scripts')
 
 </body>

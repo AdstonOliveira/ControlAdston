@@ -1,10 +1,10 @@
-// const { default: swal } = require("sweetalert");
-
 $(document).ready(function () {
 
     $("#cep").mask('99.999-999', {
         reverse: true
     })
+
+    $(".telefone").mask(SPMaskBehavior,spOptions)
 
     $("#tipo_cliente ").change(function () {
 
@@ -25,8 +25,13 @@ $(document).ready(function () {
             $("#label_sobrenome").append("Sobrenome");
 
             if (!$("#col_sobrenome").is(":visible")) {
+                $("#razao_social").prop("disabled", "disabled")
                 $("#sobrenome").prop('disabled', false)
                 $("#col_sobrenome").fadeIn()
+            }
+
+            if(!$("#col-data").is(":visible") ){
+                $("#col-data").fadeIn("slow")
             }
 
             $("#label_doc").empty();
@@ -37,6 +42,8 @@ $(document).ready(function () {
 
             $("#label_rg").empty();
             $("#label_rg").append("RG")
+
+
         } else if (selecionado == 2 || selecionado == 3) {
 
             $("#label_nome").empty();
@@ -60,6 +67,11 @@ $(document).ready(function () {
 
             $("#label_rg").empty();
             $("#label_rg").append("IE")
+
+            if($("#col-data").is(":visible") ){
+                $("#col-data").fadeOut("slow")
+            }
+            $("#col-data").fadeOut("slow")
         }
 
         if (selecionado != -1) {
@@ -187,6 +199,8 @@ $("#btn-cep").click(async function () {
 async function preencheCampo(data) {
     $("#rua").val(data.logradouro)
     $("#rua").attr("readonly", true)
+    $("#bairro").val(data.bairro)
+    $("#bairro").attr("readonly", true)
 
     let options = $("#cidade option")
 
@@ -221,3 +235,20 @@ function enableInput(input){
         $(e).prop('disabled', false)
     })
 }
+
+$("#tipo_telefone").change(function(){
+    $("#btn-telefone").attr("disabled", false)
+    $("#pre_telefone").text( $("#tipo_telefone option:selected").text() )
+})
+
+var SPMaskBehavior = function (val) {
+    return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
+  },
+  spOptions = {
+    onKeyPress: function(val, e, field, options) {
+        field.mask(SPMaskBehavior.apply({}, arguments), options);
+      }
+  };
+
+
+

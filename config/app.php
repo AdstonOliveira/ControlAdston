@@ -175,7 +175,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         // RealRashid\SweetAlert\SweetAlertServiceProvider::class,
-
+        UxWeb\SweetAlert\SweetAlertServiceProvider::class,
     ],
 
     /*
@@ -227,6 +227,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         // 'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
+        'Alert' => UxWeb\SweetAlert\SweetAlert::class,
     ],
 
 ];

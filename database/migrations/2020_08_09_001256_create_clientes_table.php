@@ -21,7 +21,7 @@ class CreateClientesTable extends Migration
 
             $table->date('dt_nascimento')->nullable();
 
-            $table->string("razao_social", 50);
+            $table->string("razao_social", 50)->nullable();
 
             $table->string('email')->unique();
 
