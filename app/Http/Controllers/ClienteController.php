@@ -28,7 +28,9 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        //
+        $clientes = Cliente::all();
+
+        return view("cliente.lista", compact('clientes'));
     }
 
     /**
@@ -38,9 +40,6 @@ class ClienteController extends Controller
      */
     public function create()
     {
-
-        // alert()->success('You have been logged out.', 'Good bye!');
-
         $tipo_cliente = TipoCliente::all();
         $tipos_endereco = TipoEndereco::all();
         $estados = Estado::all();
@@ -137,9 +136,16 @@ class ClienteController extends Controller
      * @param  \App\Cliente  $cliente
      * @return \Illuminate\Http\Response
      */
-    public function show(Cliente $cliente)
+    public function show(Request $request)
     {
-        //
+        $cliente = Cliente::findOrFail($request->id);
+        $tipo_cliente = TipoCliente::all();
+        $tipos_endereco = TipoEndereco::all();
+        $estados = Estado::all();
+        $cidade_default = Cidade::where('state_id', 25)->get();
+        $tipos_telefone = TipoTelefone::all();
+        
+        return view('cliente.index', compact('tipo_cliente', 'tipos_endereco', 'estados', 'cidade_default', 'tipos_telefone','cliente') );
     }
 
     /**

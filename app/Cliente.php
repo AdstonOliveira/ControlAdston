@@ -28,6 +28,13 @@ class Cliente extends Model
         return $this->hasMany('App\Telefone', 'pessoa_id');
     }
 
+    public function enderecos()
+    {
+        return $this->hasMany('App\Endereco', 'pessoa_id');
+    }
+
+
+
 
 
 

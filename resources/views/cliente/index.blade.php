@@ -5,7 +5,7 @@
     {{-- <div class="row"> --}}
 
 
-        <form action="{{ route('cliente.novo') }}" method="post">
+        <form action="{{ !isset($cliente) ? route('cliente.novo') : "#" }}" method="post">
             {{ csrf_field() }}
 
             <div class="row ml-2 mr-2 pl-2 pr-2 border rounded">
@@ -36,5 +36,27 @@
 
     @section('scripts')
         <script src="{{ asset('js/cliente_view.js') }}">
+        
         </script>
+
+        @php
+
+        if( isset($cliente) ){
+            $script =  
+            "<script>
+           
+                    if($cliente->tipo_id == 1){
+                        campos_pf();
+                    }else{
+                        campos_pj();
+                    }
+
+                    mostra_linhas();
+
+            </script>";
+            
+                echo $script;
+        }
+        
+    @endphp
     @endsection

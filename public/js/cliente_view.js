@@ -1,3 +1,86 @@
+async function preencheCidade() {
+    let id = $("#estado option:selected").val()
+    let route = "/cidades"
+    route += "/" + id
+
+    $.get(route, {})
+        .done(function (data) {
+            $("#cidade").empty();
+            $("#cidade").append(data)
+        })
+
+}
+
+function mostra_linhas(){
+    $("#row_cliente").fadeIn("slow")
+    $("#documentos").fadeIn("slow")
+    exibeEndereco()
+}
+
+function campos_pf(){
+
+    if ($("#razao").is(':visible')) {
+        $("#razao").hide();
+    }
+
+    $("#label_nome").empty();
+        $("#label_nome").append("Nome");
+        $("#nome").attr("placeholder", "Nome do cliente");
+        $("#h_nome").empty();
+        $("#h_nome").append("Insira o nome do cliente");
+
+        $("#label_sobrenome").empty();
+        $("#label_sobrenome").append("Sobrenome");
+
+        if (!$("#col_sobrenome").is(":visible")) {
+            $("#razao_social").prop("disabled", "disabled")
+            $("#sobrenome").prop('disabled', false)
+            $("#col_sobrenome").fadeIn()
+        }
+
+        if(!$("#col-data").is(":visible") ){
+            $("#col-data").fadeIn("slow")
+        }
+
+        $("#label_doc").empty();
+        $("#label_doc").append("CPF")
+        $("#cpf").mask('000.000.000-00', {
+            reverse: true
+        })
+
+        $("#label_rg").empty();
+        $("#label_rg").append("RG")
+}
+
+function campos_pj(){
+    $("#label_nome").empty();
+        $("#label_nome").append("Nome fantasia");
+        $("#nome").attr("placeholder", "Nome fantasia");
+        $("#h_nome").empty();
+        $("#h_nome").append("Insira o nome fantasia da empresa");
+
+        $("#sobrenome").attr('disabled', 'disabled')
+        $("#col_sobrenome").hide()
+
+        $("#label_doc").empty();
+        $("#label_doc").append("CNPJ")
+
+        $("#cpf").mask('00.000.000/0000-00', {
+            reverse: true
+        })
+
+        $("#razao_social").prop('disabled', false);
+        $("#razao").fadeIn("fast");
+
+        $("#label_rg").empty();
+        $("#label_rg").append("IE")
+
+        if($("#col-data").is(":visible") ){
+            $("#col-data").fadeOut("slow")
+        }
+        $("#col-data").fadeOut("slow")
+}
+
 $(document).ready(function () {
 
     $("#cep").mask('99.999-999', {
@@ -10,95 +93,27 @@ $(document).ready(function () {
 
         let selecionado = $("#tipo_cliente option:selected").val();
 
-        if ($("#razao").is(':visible')) {
-            $("#razao").hide();
-        }
-
         if (selecionado == 1) {
-            $("#label_nome").empty();
-            $("#label_nome").append("Nome");
-            $("#nome").attr("placeholder", "Nome do cliente");
-            $("#h_nome").empty();
-            $("#h_nome").append("Insira o nome do cliente");
-
-            $("#label_sobrenome").empty();
-            $("#label_sobrenome").append("Sobrenome");
-
-            if (!$("#col_sobrenome").is(":visible")) {
-                $("#razao_social").prop("disabled", "disabled")
-                $("#sobrenome").prop('disabled', false)
-                $("#col_sobrenome").fadeIn()
-            }
-
-            if(!$("#col-data").is(":visible") ){
-                $("#col-data").fadeIn("slow")
-            }
-
-            $("#label_doc").empty();
-            $("#label_doc").append("CPF")
-            $("#cpf").mask('000.000.000-00', {
-                reverse: true
-            })
-
-            $("#label_rg").empty();
-            $("#label_rg").append("RG")
-
+            campos_pf();
 
         } else if (selecionado == 2 || selecionado == 3) {
 
-            $("#label_nome").empty();
-            $("#label_nome").append("Nome fantasia");
-            $("#nome").attr("placeholder", "Nome fantasia");
-            $("#h_nome").empty();
-            $("#h_nome").append("Insira o nome fantasia da empresa");
-
-            $("#sobrenome").attr('disabled', 'disabled')
-            $("#col_sobrenome").hide()
-
-            $("#label_doc").empty();
-            $("#label_doc").append("CNPJ")
-
-            $("#cpf").mask('00.000.000/0000-00', {
-                reverse: true
-            })
-
-            $("#razao_social").prop('disabled', false);
-            $("#razao").fadeIn("fast");
-
-            $("#label_rg").empty();
-            $("#label_rg").append("IE")
-
-            if($("#col-data").is(":visible") ){
-                $("#col-data").fadeOut("slow")
-            }
-            $("#col-data").fadeOut("slow")
+            campos_pj();
         }
 
         if (selecionado != -1) {
-            $("#row_cliente").fadeIn("slow")
-            $("#documentos").fadeIn("slow")
+            mostra_linhas();            
         }
 
     })
 })
 
+
 $("#estado").change(function () {
-    let a = Promise.resolve(preencheCidade())
+    let a = Promise.resolve( preencheCidade() )
 })
 
-async function preencheCidade() {
-    let id = $("#estado option:selected").val()
-    let route = "{{ url('cidades') }}"
-    route += "/" + id
 
-    $.get(route, {})
-        .done(function (data) {
-            $("#cidade").empty();
-            $("#cidade").append(data)
-        })
-
-    console.log("Preencheu")
-}
 
 
 $("#btn-cep").click(async function () {

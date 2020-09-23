@@ -29,6 +29,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['prefix' => 'cliente'], function () {
         Route::get("novo", "ClienteController@create")->name('cliente.novo');
         Route::post("novo", "ClienteController@store")->name('cliente.novo');
+        Route::get("lista", "ClienteController@index")->name('cliente.lista');
+        Route::get("editar/{id}", "ClienteController@show")->name("cliente.editar");
     });
 
 
