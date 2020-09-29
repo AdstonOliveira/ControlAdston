@@ -34,11 +34,13 @@
                                 <a href="{{route('cliente.editar',[$cliente->id])}}" class="btn btn-sm botao" data-toggle="tooltip" data-placement="top" title="Editar cliente">
                                     <i class="fa fa-edit editar"></i>
                                 </a>
-
-                                <button class="btn btn-sm botao" data-toggle="tooltip" data-placement="top" title="Excluir cliente">
-                                    <i class="fa fa-trash-o excluir" aria-hidden="true"></i>
-                                </button>
-
+                                <form action="{{route('cliente.delete',[$cliente->id])}}" method="post">
+                                    @method("DELETE")
+                                    {{ csrf_field() }}
+                                    <button class="btn btn-sm botao" data-toggle="tooltip" data-placement="top" title="Excluir cliente">
+                                        <i class="fa fa-trash-o excluir" aria-hidden="true"></i>
+                                    </button>
+                                </form>
                             </div>
 
                         </td>

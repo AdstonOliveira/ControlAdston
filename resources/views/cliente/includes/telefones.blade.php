@@ -14,7 +14,8 @@
                     </button>
                 </div>
 
-                <input type="text" name="residencial" class="form-control telefone">
+                <input type="text" name="residencial" class="form-control telefone"
+                    value="{{ !empty($residencial) ? $residencial->telefone : "" }}" >
             </div>
 
         </div>
@@ -30,7 +31,8 @@
                     </button>
                 </div>
 
-                <input type="text" name="comercial" class="form-control telefone">
+                <input type="text" name="comercial" class="form-control telefone"
+                    value="{{ !empty($comercial) ? $comercial->telefone : ""}}">
             </div>
 
         </div>
@@ -46,7 +48,8 @@
                     </button>
                 </div>
 
-                <input type="text" name="celular" class="form-control telefone">
+                <input type="text" name="celular" class="form-control telefone"7
+                    value="{{ !empty($celular) ? $celular->telefone : ""}}">
             </div>
 
         </div>
@@ -73,7 +76,8 @@
                     </button>
                 </div>
 
-                <input type="text" name="residencial" class="form-control telefone">
+                <input type="text" name="residencial" class="form-control telefone" 
+                    >
             </div>
 
         </div>
@@ -89,7 +93,8 @@
                     </button>
                 </div>
 
-                <input type="text" name="comercial" class="form-control telefone">
+                <input type="text" name="comercial" class="form-control telefone"
+                    >
             </div>
 
         </div>
@@ -105,7 +110,8 @@
                     </button>
                 </div>
 
-                <input type="text" name="celular" class="form-control telefone">
+                <input type="text" name="celular" class="form-control telefone"
+                    >
             </div>
 
         </div>

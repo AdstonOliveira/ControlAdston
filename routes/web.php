@@ -31,6 +31,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post("novo", "ClienteController@store")->name('cliente.novo');
         Route::get("lista", "ClienteController@index")->name('cliente.lista');
         Route::get("editar/{id}", "ClienteController@show")->name("cliente.editar");
+        Route::put("editar/{id}","CidadeController@update")->name("cliente.editar");
+        Route::delete('delete/{id}', "ClienteController@destroy")->name("cliente.delete");
     });
 
 

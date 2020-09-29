@@ -58,9 +58,6 @@ class ClienteController extends Controller
     public function store(Request $request)
     {
         $dados = $request->all();
-
-        SweetAlert::success('Success Message', 'Optional Title');
-        return redirect()->back()->with("success", "Deu certo");
         // dd($dados);
         DB::beginTransaction();
         try {
@@ -92,6 +89,7 @@ class ClienteController extends Controller
             $pessoa->docs_id = $documentos->id;
 
             $pessoa->save();
+
             $endereco = Endereco::create(
                 [
                     'pessoa_id' => $pessoa->id,
@@ -145,7 +143,12 @@ class ClienteController extends Controller
         $cidade_default = Cidade::where('state_id', 25)->get();
         $tipos_telefone = TipoTelefone::all();
         
-        return view('cliente.index', compact('tipo_cliente', 'tipos_endereco', 'estados', 'cidade_default', 'tipos_telefone','cliente') );
+        $celular = $cliente->telefones()->where('tipo_id',4)->first();
+        $residencial = $cliente->telefones()->where('tipo_id',2)->first();
+        $comercial = $cliente->telefones()->where('tipo_id',1)->first();
+
+        // dd($celular, $residencial, $comercial);
+        return view('cliente.index', compact('celular','residencial','comercial','tipo_cliente', 'tipos_endereco', 'estados', 'cidade_default', 'tipos_telefone','cliente') );
     }
 
     /**
@@ -156,7 +159,7 @@ class ClienteController extends Controller
      */
     public function edit(Cliente $cliente)
     {
-        //
+        
     }
 
     /**
@@ -168,7 +171,7 @@ class ClienteController extends Controller
      */
     public function update(Request $request, Cliente $cliente)
     {
-        //
+        dd($request->all());
     }
 
     /**
@@ -177,8 +180,10 @@ class ClienteController extends Controller
      * @param  \App\Cliente  $cliente
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Cliente $cliente)
+    public function destroy(Request $request)
     {
-        //
+        $cliente = Cliente::findOrFail($request->id);
+        $cliente->delete();
+        return back()->with('success', "Cliente apagado");
     }
 }
