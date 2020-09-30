@@ -11,7 +11,8 @@
 |
 */
 
-use App\Model\PessoaFisica;
+use App\Cliente;
+use App\Http\Resources\ClienteOption as Resource;
 
 Route::get('/', function () {
     return view('welcome');
@@ -20,9 +21,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/ordem_servico', function(){
-    return view('assistencia.ordem_servico');
-})->name('os');
+
+Route::get("clientes_json/{nome}", "AjaxController@selectClientes")->name("option_cliente");
 
 Route::group(['middleware' => ['auth']], function () {
 
@@ -33,6 +33,12 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get("editar/{id}", "ClienteController@show")->name("cliente.editar");
         Route::put("editar/{id}","CidadeController@update")->name("cliente.editar");
         Route::delete('delete/{id}', "ClienteController@destroy")->name("cliente.delete");
+    });
+
+    Route::group(['prefix' => 'os'], function () {
+        Route::get("lista", "OrdemServicoController@index")->name("os");
+        Route::get("novo", "OrdemServicoController@create")->name("os.novo");
+        Route::post("novo", "OrdemServicoController@store")->name("os.novo");
     });
 
 

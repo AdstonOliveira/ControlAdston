@@ -32,8 +32,14 @@ class Cliente extends Model
     {
         return $this->hasMany('App\Endereco', 'pessoa_id');
     }
+    
+    public function equipamentos()
+    {
+        return $this->hasMany('App\Model\OS\Equipamento', 'pessoa_id');
+    }
 
 
+    
 
 
 

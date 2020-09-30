@@ -186,4 +186,7 @@ class ClienteController extends Controller
         $cliente->delete();
         return back()->with('success', "Cliente apagado");
     }
+
+
+    
 }

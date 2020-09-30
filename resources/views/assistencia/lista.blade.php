@@ -5,7 +5,7 @@
         <div class="col-md-12 col-sm-12">
             <div class="card card-body">
                 <div class="col-md-12 col-m-12">
-                    <button type="button" class="btn btn-primary">Nova OS</button>
+                    <a href="{{route("os.novo")}}" class="btn btn-primary">Nova OS</a>
                 </div>
             </div>
         </div>

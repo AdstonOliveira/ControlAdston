@@ -14,7 +14,7 @@ class OrdemServicoController extends Controller
      */
     public function index()
     {
-        //
+        return view("assistencia.lista");
     }
 
     /**
@@ -24,7 +24,7 @@ class OrdemServicoController extends Controller
      */
     public function create()
     {
-        //
+        return view("assistencia.os");
     }
 
     /**
@@ -35,7 +35,7 @@ class OrdemServicoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->all());
     }
 
     /**
