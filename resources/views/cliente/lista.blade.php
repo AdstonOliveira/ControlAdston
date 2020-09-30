@@ -31,13 +31,15 @@
                         <td class="text-capitalize">{{ $cliente->tipo->tipo }}</td>
                         <td>
                             <div class="row justify-content-around">
-                                <a href="{{route('cliente.editar',[$cliente->id])}}" class="btn btn-sm botao" data-toggle="tooltip" data-placement="top" title="Editar cliente">
+                                <a href="{{ route('cliente.editar', [$cliente->id]) }}" class="btn btn-sm botao"
+                                    data-toggle="tooltip" data-placement="top" title="Editar cliente">
                                     <i class="fa fa-edit editar"></i>
                                 </a>
-                                <form action="{{route('cliente.delete',[$cliente->id])}}" method="post">
+                                <form action="{{ route('cliente.delete', [$cliente->id]) }}" method="post" name="form_delete">
                                     @method("DELETE")
                                     {{ csrf_field() }}
-                                    <button class="btn btn-sm botao" data-toggle="tooltip" data-placement="top" title="Excluir cliente">
+                                    <button class="btn btn-sm botao" data-toggle="tooltip" data-placement="top"
+                                        title="Excluir cliente" name="btn_excluir">
                                         <i class="fa fa-trash-o excluir" aria-hidden="true"></i>
                                     </button>
                                 </form>
@@ -47,7 +49,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td class="text-capitalize" colspan="5">nenhum cliente cadastrado</td>
+                        <td class="text-capitalize" colspan="6">nenhum cliente cadastrado</td>
                     </tr>
                 @endforelse
 
@@ -65,14 +67,40 @@
 <script>
     $(document).ready(function() {
         $("#tabela_clientes").DataTable();
-        $('[data-toggle="tooltip"]').tooltip({ boundary: 'window' })
+        $('[data-toggle="tooltip"]').tooltip({
+            boundary: 'window'
+        })
     })
 
-    function editar(id){
-        alert(`Você vai editar: ${id}`)
-        
-        window.location.href= `/cliente/editar/${id}`
+    function editar(id) {
+        window.location.href = `/cliente/editar/${id}`
     }
+
+    $("[name='form_delete']").on("submit", function(e) {
+        e.preventDefault();
+        var form = this;
+        Swal.fire({
+            title: 'Excluir Cliente!',
+            text: 'Atenção! \nDeseja mesmo excluir este cliente?',
+            icon: 'warning',
+            showDenyButton: true,
+            showCancelButton: true,
+            cancelButtonText: `Não, não excluir o cliente!`,
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: `Sim, excluir este cliente!`,
+            confirmButtonColor: 'red',
+        }).then(function(result) {
+
+            if (result.isConfirmed) {
+                form.submit()
+                // Swal.fire(
+                //     'Cliente excluido!',
+                //     'Exclusão enviada',
+                //     'success',
+                // )
+            }
+        })
+    })
 
 </script>
 @endsection

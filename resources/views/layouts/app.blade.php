@@ -75,9 +75,24 @@
     @include('sweet::alert')
     <script src="{{asset('js/jmask/dist/jquery.mask.js')}}"></script>
 
-    @if (Session::has('sweet_alert.alert'))
+    @if (Session::has('success'))
         <script>
-            swal({!! Session::get('sweet_alert.alert') !!});
+            Swal
+                .fire(
+                    "Operação efetuada com sucesso",
+                    `{!! Session::get('success') !!}`,
+                    "success"
+                );
+        </script>
+    @endif
+    @if (Session::has('error'))
+        <script>
+            Swal
+                .fire(
+                    "Operação efetuada com sucesso",
+                    `{!! Session::get('error') !!}`,
+                    "error"
+                );
         </script>
     @endif
 
