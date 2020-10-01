@@ -9,7 +9,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="#">
+                <form>
                     <input type="hidden" name="cliente">
 
                     <div class="row">
