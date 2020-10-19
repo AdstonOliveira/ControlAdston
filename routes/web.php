@@ -46,6 +46,11 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('ajax/status/{id_os}/{id_status}', "AjaxController@updateStatus")->name('ajax.os.status');
     });
 
+    Route::group(['prefix' => 'admin'], function () {
+        Route::get('/',"DividaController@index")->name("admin");
+        Route::get('pagar/novo',"DividaController@create")->name("admin.divida.novo");
+    });
+
 
 
 });

@@ -15,6 +15,7 @@ class TipoPessoaSeeder extends Seeder
             ['id'=>1, 'tipo'=>'Pessoa Física', 'sigla'=>'PF'],
             ['id'=>2, 'tipo'=>'Pessoa jurídica', 'sigla'=>'PJ'],
             ['id'=>3, 'tipo'=>'Fornecedor', 'sigla'=>'FORN'],
+            ['id'=>4, 'tipo'=>'Credor', 'sigla'=>'CRED'],
         ]);
     }
 }

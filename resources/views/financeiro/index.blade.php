@@ -1,68 +1,70 @@
 @extends('layouts.app')
 @section('options_btn')@endsection
-@section('card_title', 'Novo Cliente')
+@section('card_title', 'Conta a pagar')
 @section('content')
-    {{-- <div class="row"> --}}
 
+    <div class="col-12">
+        @include('financeiro.include.modal_credor')
 
-        <form action="{{ !isset($cliente) ? route('cliente.novo') : route('cliente.editar',[$cliente->id]) }}" method="POST">
-            
-            @isset($cliente)
-                @method("PUT")
-            @else
-                @method("POST")
-            @endisset
-            {{ csrf_field() }}
+        <form action="#" method="POST">
+            <div class="row w-100">
+                <div class="col-md-6 col-sm-12">
+                    <label for="cliente">Credor:</label>
+                    {{-- Add autocomplete --}}
+                    <select name="cliente" id="cliente_os" class="form-control" required>
+                        @forelse($credores as $credor)
+                            <option value="{{$credor->id}}" class="text text-capitalize">{{$credor->nome}}</option>
+                        @empty
+                            <option value="-1">Nenhum Credor encontrado</option>
+                        @endforelse
+                    </select>
+                </div>
 
-            <div class="row ml-2 mr-2 pl-2 pr-2 border rounded">
-                @include('cliente.includes.dados_pessoais')
-                @include('cliente.includes.documentos')
+                <div class="col-md-6 col-sm-12" style="display:flex; flex-direction: column">
+                    <label for="novo_cliente">Novo Credor:</label>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#equipamento"
+                            id="btn_cadequip">+</button>
+                </div>
+                
             </div>
+            <hr />
 
-            <div class="row mt-2 pt-2 ml-2 mr-2 pl-2 pr-2 border rounded">
-                @include('cliente.includes.endereco')
-            </div>
+            <div class="row">
+                <div class="row col-md-4 col-sm-12">
+                    <div class="col-md-8 col-sm-12">
+                        <label for="tipo">Tipo:</label>
+                        <select class="form-control" name="tipo_pagto" id="tipo_pagto">
+                            @forelse($tipo_divida as $tipo)
+                                <option value="{{$tipo->id}}">{{$tipo->tipo}}</option>
+                            @empty
+                            @endforelse
+                        </select>
+                    </div>
+                    <div class="col-md-3 col-sm-12 pt-2">
+                        <button type="button" class="btn btn-success mt-4 pt-1">+</button>
+                    </div>
+                </div>
 
-            <div class="mt-2 pt-2 ml-2 mr-2 pl-2 pr-2 border rounded" id="div-telefone">
-                @include('cliente.includes.telefones')
-            </div>
+                <div class="col-md-3 col-sm-12">
+                    <label for="dt_vct">Data Vencimento:</label>
+                    <input type="date" name="dt_vct" id="dt_vct" class="form-control" required>
+                </div>
 
-            <div class="mt-2 pt-2 ml-2 mr-2 pl-2 pr-2 border rounded">
-                <div class="col-md-4 col-sm-12 mb-2">
-                    <button class="btn {{ isset($cliente) ? " btn-primary " : " btn-success "}} w-100" type="submit">{{ isset($cliente) ? "Editar" : "Salvar" }}</button>
+                <div class="col-md-3 col-sm-12">
+                    <label for="dt_pagto">Data Pagamento:</label>
+                    <input type="date" name="dt_pgto" id="dt_pagto" class="form-control">
+                </div>
+
+
+                <div class="col-md-2 col-sm-12">
+                    <label for="valor">Valor:</label>
+                    <input type="text" class="form-control money" name="valor" id="valor" required>
                 </div>
             </div>
-
-
-
-            
         </form>
-
+    </div>
     @endsection
 
     @section('scripts')
-        <script src="{{ asset('js/cliente_view.js') }}">
         
-        </script>
-
-        @php
-
-        if( isset($cliente) ){
-            $script =  
-            "<script>
-           
-                    if($cliente->tipo_id == 1){
-                        campos_pf();
-                    }else{
-                        campos_pj();
-                    }
-
-                    mostra_linhas();
-
-            </script>";
-            
-                echo $script;
-        }
-        
-    @endphp
     @endsection
