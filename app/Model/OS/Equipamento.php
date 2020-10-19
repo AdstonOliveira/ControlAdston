@@ -21,4 +21,8 @@ class Equipamento extends Model
     {
         return $this->belongsTo('App\Cliente', 'pessoa_id');
     }
+
+    public function ordemServico(){
+        return $this->hasMany("App\Model\OS\OrdemServico", "equip_id");
+    }
 }

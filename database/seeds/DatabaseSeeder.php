@@ -1,6 +1,5 @@
 <?php
 
-use App\TipoEndereco;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -19,7 +18,10 @@ class DatabaseSeeder extends Seeder
                 // UserAdmin::class,
                 // TipoEnderecoSeeder::class,
                 // TipoPessoaSeeder::class,
-                TipoTelefoneSeeder::class,
+                // TipoTelefoneSeeder::class,
+                // TipoEquipSeeder::class
+                // TipoDefeitoSeeder::class
+                StatusOSSeeder::class
             ]
         );
 

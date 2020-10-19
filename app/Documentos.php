@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Documentos extends Model
 {
     use SoftDeletes;
+    protected $table = "documentos";
     protected $fillable = ["cpf_cnpj", "rg_ie","im"];
 
     public function pessoa()

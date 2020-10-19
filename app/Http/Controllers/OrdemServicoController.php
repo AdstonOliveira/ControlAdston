@@ -2,8 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\OrdemServico;
+use App\Cliente;
+use App\Model\OS\Equipamento;
+use App\Model\OS\OrdemServico;
+use App\Model\OS\StatusOS;
+use App\Model\OS\TipoDefeito;
+use App\Model\OS\TipoEquipamento;
+
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OrdemServicoController extends Controller
 {
@@ -14,7 +22,8 @@ class OrdemServicoController extends Controller
      */
     public function index()
     {
-        return view("assistencia.lista");
+        $ordens = OrdemServico::all();
+        return view("assistencia.lista", compact("ordens"));
     }
 
     /**
@@ -24,7 +33,9 @@ class OrdemServicoController extends Controller
      */
     public function create()
     {
-        return view("assistencia.os");
+        $tipo_equipamento = TipoEquipamento::all();
+
+        return view("assistencia.os", compact("tipo_equipamento"));
     }
 
     /**
@@ -34,8 +45,19 @@ class OrdemServicoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        dd($request->all());
+    {   
+        
+        $equipamento = Equipamento::findOrFail($request->equipamentos);
+        $os = new OrdemServico();
+        
+            $os->equip_id = $equipamento->id;
+            $os->dt_abertura = Carbon::now();
+            $os->defeito = $request->defeito;
+            $os->aberto_por = Auth::user()->id;
+            
+        $os->save();
+        
+        return redirect()->route("os.edit",[$os->id]);
     }
 
     /**
@@ -55,9 +77,15 @@ class OrdemServicoController extends Controller
      * @param  \App\OrdemServico  $ordemServico
      * @return \Illuminate\Http\Response
      */
-    public function edit(OrdemServico $ordemServico)
-    {
-        //
+    public function edit(Request $request, $id)
+    {   
+        $os = OrdemServico::findOrFail($id);
+        $tipo_equipamento = TipoEquipamento::all();
+        $tipos_defeito = TipoDefeito::all();
+        $status = StatusOS::all();
+
+
+        return view("assistencia.os", compact("tipo_equipamento","os","tipos_defeito", "status"));
     }
 
     /**
@@ -69,7 +97,7 @@ class OrdemServicoController extends Controller
      */
     public function update(Request $request, OrdemServico $ordemServico)
     {
-        //
+        dd($request->all());
     }
 
     /**
@@ -78,8 +106,11 @@ class OrdemServicoController extends Controller
      * @param  \App\OrdemServico  $ordemServico
      * @return \Illuminate\Http\Response
      */
-    public function destroy(OrdemServico $ordemServico)
+    public function destroy(Request $request, OrdemServico $ordemServico)
     {
-        //
+        $os = OrdemServico::findOrFail($request->os_id_delete);
+        $os->delete();
+
+        return back()->with("success", "Ordem de Serviço apagada com sucesso");
     }
 }

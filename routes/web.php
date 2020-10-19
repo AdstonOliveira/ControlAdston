@@ -39,6 +39,11 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get("lista", "OrdemServicoController@index")->name("os");
         Route::get("novo", "OrdemServicoController@create")->name("os.novo");
         Route::post("novo", "OrdemServicoController@store")->name("os.novo");
+        Route::get("edit/{id}", "OrdemServicoController@edit")->name("os.edit");
+        Route::put("edit/{id}", "OrdemServicoController@update")->name("os.edit");
+        Route::delete("delete", "OrdemServicoController@destroy")->name("os.delete");
+        //Ajax Route 
+        Route::get('ajax/status/{id_os}/{id_status}', "AjaxController@updateStatus")->name('ajax.os.status');
     });
 
 
@@ -46,3 +51,5 @@ Route::group(['middleware' => ['auth']], function () {
 });
 
 Route::get('cidades/{id}', "CidadeController@cidadesEstado")->name('cidades.nome');
+Route::post('equipamento_ajax', "EquipamentoController@store")->name("equip.store");
+Route::get('equipamento_ajax/{cliente_id?}', "EquipamentoController@equipCliente")->name("equip.lista");
