@@ -18,7 +18,8 @@ class ClienteOption extends JsonResource
         [
             'id'=>$this->id,
             'nome'=> $this->nome . " " . $this->sobrenome,
-            'identificacao'=>$this->documentos->cpf_cnpj
+            'identificacao'=>$this->documentos->cpf_cnpj,
+            'docs'=>$this->documentos
         ];
     }
 }
