@@ -21,7 +21,8 @@ class DatabaseSeeder extends Seeder
                 // TipoTelefoneSeeder::class,
                 // TipoEquipSeeder::class
                 // TipoDefeitoSeeder::class
-                StatusOSSeeder::class
+                // StatusOSSeeder::class
+                TiposPagto::class
             ]
         );
 

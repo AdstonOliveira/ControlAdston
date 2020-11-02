@@ -54,6 +54,7 @@ class OrdemServicoController extends Controller
             $os->dt_abertura = Carbon::now();
             $os->defeito = $request->defeito;
             $os->aberto_por = Auth::user()->id;
+            $os->nome_exibicao = $request->nome_exibicao;
             
         $os->save();
         
@@ -97,7 +98,17 @@ class OrdemServicoController extends Controller
      */
     public function update(Request $request, OrdemServico $ordemServico)
     {
-        dd($request->all());
+        $num_os = $request->numero;
+        $tipo_def = $request->tipo_defeito;
+        $solucao = $request->solucao;
+
+        $os = OrdemServico::findOrFail($num_os);
+        $os->tipo_defeito = $tipo_def;
+        $os->solucao = $solucao;
+
+        $os->update();
+
+        return back()->with("success", "OS $os->id atualizada");
     }
 
     /**

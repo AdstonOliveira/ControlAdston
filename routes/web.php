@@ -23,6 +23,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get("clientes_json/{nome}", "AjaxController@selectClientes")->name("option_cliente");
+Route::get("formas_pagto/{tipo_id}", "AjaxController@formaPagto")->name("formas_pagto");
 
 Route::group(['middleware' => ['auth']], function () {
 
@@ -49,6 +50,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['prefix' => 'admin'], function () {
         Route::get('/',"DividaController@index")->name("admin");
         Route::get('pagar/novo',"DividaController@create")->name("admin.divida.novo");
+    });
+
+    Route::group(['prefix' => 'vendas'], function () {
+        Route::get("novo", "OrcamentoController@create")->name("orcamento.novo");
     });
 
 

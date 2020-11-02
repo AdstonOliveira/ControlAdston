@@ -36,7 +36,7 @@
                         Vendas
                     </a>
                     <div class="dropdown-menu" aria-labelledby="NavbarVendas">
-                        <a class="dropdown-item" href="#">Vender</a>
+                        <a class="dropdown-item" href="{{route('orcamento.novo')}}">Vender</a>
                         <a class="dropdown-item" href="#">Histórico</a>
                     </div>
                 </li>
@@ -46,6 +46,7 @@
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Assistência
                     </a>
+
                     <div class="dropdown-menu" aria-labelledby="NavbarAssistencia">
                         <a class="dropdown-item" href="{{ route('os') }}">Ordens Serviço</a>
                         <a class="dropdown-item" href="#">Equipamentos</a>

@@ -10,7 +10,7 @@ class OrdemServico extends Model
     use SoftDeletes;
     protected $table = "ordem_servico";
 
-    protected $fillable = [ "equip_id", "tipo_defeito", "orcamento_id", "defeito", "solucao", "status_id","aberto_por"];
+    protected $fillable = [ "nome_exibicao","equip_id", "tipo_defeito", "orcamento_id", "defeito", "solucao", "status_id","aberto_por"];
     protected $dates = ["dt_abertura","dt_encerramento"];
 
 

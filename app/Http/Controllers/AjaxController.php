@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Cliente;
+use App\FormaPagto;
 use App\Http\Resources\ClienteOption;
 use App\Model\OS\OrdemServico;
 use App\Model\OS\StatusOS;
+use App\TipoPagto;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -39,6 +41,13 @@ class AjaxController extends Controller
             return response()->json(["Erro ao salvar equipamento: ". $e->getMessage(), 500]);
         }
         
+    }
+
+    public function formaPagto($tipo_id){
+        
+        $formas = TipoPagto::findOrFail($tipo_id);
+
+        return response()->json($formas->formasPagto, 200);
     }
 
 

@@ -16,6 +16,7 @@ class TipoDefeitoSeeder extends Seeder
             ['id'=>2, 'descricao'=> 'Software'],
             ['id'=>3, 'descricao'=> 'Mau uso'],
             ['id'=>4, 'descricao'=> 'SemDefeito'],
+            ['id'=>5, 'descricao'=> 'Outros'],
         ]);
     }
 }

@@ -12,34 +12,48 @@
 
             <div class="row justify-content-between p-2" id="div_cliente">
                 
-                <div class="col-md-3 col-sm-12">
+                <div class="col-md-2 col-sm-12">
                     <label for="data">Data Entrada:</label>
                     <input type="datetime" name="data" id="data_os" class="form-control" value="{{ date('d-m-Y H:i:s') }}"
-                        readonly>
+                        readonly title="{{isset($os) ? $os->dt_abertura : date('d-m-Y H:i:s')}}">
                 </div>
 
-                <div class="{{isset($os) ? "col-md-4" : "col-md-2 "}}  col-sm-12">
+                <div class="{{isset($os) ? "col-md-3" : "col-md-2 "}}  col-sm-12">
                     <label for="numero">Numero OS:</label>
                     <input type="text" name="numero" id="numero_os" class="form-control text-center" readonly value="{{isset($os) ? $os->id : ''}}">
                 </div>
 
                 @if( !isset($os) )
+
                     <div class="col-md-3 col-sm-12">
-                        <label for="cliente">Cliente:</label>
+                        <label for="cliente" class="pb-2">Cliente:</label>
                         <select name="cliente" id="cliente_os" class="form-control" required></select>
                     </div>
 
-                    <div class="col-md-3 col-sm-12" style="display:flex; flex-direction: column">
+                    <div class="col-md-3 col-sm-12">
+                        <label for="cliente">Nome Exibicao:</label>
+                        <input type="text" name="nome_exibicao" id="nome_exibicao" class="form-control">
+                    </div>
+
+                    <div class="col-md-2 col-sm-12" style="display:flex; flex-direction: column">
                         <label for="novo_cliente">Novo Cliente:</label>
                         <a href="{{ route('cliente.novo') }}" target="_blank" class="btn btn-sm btn-primary">+</a>
                     </div>
 
-                    
                 @else
-                    <div class="col-md-5 col-sm-12">
+
+                    <div class="col-md-3 col-sm-12">
                         <label for="cliente">Cliente:</label>
                         <input type="hidden" name="cliente" value="{{ $os->equipamento->cliente->id }}">
                         <input type="text" name="nome_cliente" id="nome_cliente" class="form-control text-center text-capitalize" readonly disabled value="{{$os->equipamento->cliente->nome}}">
+                    </div>
+
+                    <div class="col-md-3 col-sm-12">
+                        <label for="nome_exibicao">Nome Exibicao:</label>
+                        @php
+                            $exibir = isset($os->nome_exibicao) ? $os->nome_exibicao : $os->equipamento->cliente->nome;
+                        @endphp
+                        <input type="text" name="nome_cliente" id="nome_cliente" class="form-control text-center text-capitalize" readonly disabled value="{{$exibir}}">
                     </div>
 
                     <div class="row justify-content-center mt-2" id="div_status">

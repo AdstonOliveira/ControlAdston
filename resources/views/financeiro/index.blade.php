@@ -7,6 +7,7 @@
         @include('financeiro.include.modal_credor')
 
         <form action="#" method="POST">
+            {{ csrf_field() }} 
             <div class="row w-100">
                 <div class="col-md-6 col-sm-12">
                     <label for="cliente">Credor:</label>
