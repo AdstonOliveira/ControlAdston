@@ -20,9 +20,15 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+
+    
+
     @yield('css')
     <style>
         .botao{
@@ -74,6 +80,7 @@
             </div>
         </main>
     </div>
+
     @include('sweet::alert')
     <script src="{{asset('js/jmask/dist/jquery.mask.js')}}"></script>
 
@@ -97,6 +104,28 @@
                 );
         </script>
     @endif
+
+    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
+
+
+    <script>
+
+        $(document).ready(function(){
+            if($("body").find(".table")){
+                $(".table").DataTable();
+            }
+
+            if($("body").find("[data-toogle='tooltip']")){
+                $('[data-toggle="tooltip"]').tooltip({
+                    boundary: 'window'
+                })
+            }
+        })
+
+
+    </script>
+
 
     @yield('scripts')
 
