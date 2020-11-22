@@ -31,6 +31,18 @@
 
     @yield('css')
     <style>
+        body {
+            background-color: #fff;
+            background-image: url('{{ asset('img/background.jpg') }}');
+            background-size: cover;
+            background-repeat: no-repeat;
+
+            color: #636b6f;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 200;
+            height: 100vh;
+            margin: 0;
+        }
         .botao{
             font-size: 20px;
         }
@@ -41,6 +53,7 @@
         .botao > .excluir{
             color: red;
         }
+
 
     </style>
     

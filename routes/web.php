@@ -31,13 +31,13 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/', "ClienteController@index")->name('Central Clientes');
         Route::get("novo", "ClienteController@create")->name('cliente.novo');
         Route::post("novo", "ClienteController@store")->name('cliente.novo');
-        Route::get("lista", "ClienteController@index")->name('cliente.lista');
         Route::get("editar/{id}", "ClienteController@show")->name("cliente.editar");
         Route::put("editar/{id}","CidadeController@update")->name("cliente.editar");
         Route::delete('delete/{id}', "ClienteController@destroy")->name("cliente.delete");
     });
 
     Route::group(['prefix' => 'os'], function () {
+        Route::get("/", "OrdemServicoController@index")->name("Central OS");
         Route::get("lista", "OrdemServicoController@index")->name("os");
         Route::get("novo", "OrdemServicoController@create")->name("os.novo");
         Route::post("novo", "OrdemServicoController@store")->name("os.novo");

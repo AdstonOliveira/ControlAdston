@@ -23,7 +23,7 @@ class OrdemServicoController extends Controller
     public function index()
     {
         $ordens = OrdemServico::all();
-        return view("assistencia.lista", compact("ordens"));
+        return view("assistencia.main", compact("ordens"));
     }
 
     /**

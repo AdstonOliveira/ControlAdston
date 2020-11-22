@@ -41,17 +41,7 @@
                     </div>
                 </li>
 
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="NavbarAssistencia" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Assistência
-                    </a>
-
-                    <div class="dropdown-menu" aria-labelledby="NavbarAssistencia">
-                        <a class="dropdown-item" href="{{ route('os') }}">Ordens Serviço</a>
-                        <a class="dropdown-item" href="#">Equipamentos</a>
-                    </div>
-                </li>
+                @include('layouts.menu.includes.os_options')
 
             </ul>
             @endguest

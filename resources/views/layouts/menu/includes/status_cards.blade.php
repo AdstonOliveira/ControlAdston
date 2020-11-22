@@ -14,22 +14,22 @@
 <div class="card w-100">
     <div class="card-header">
         <div class="row justify-content-end pr-2">
-            <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button"
+            <a class="btn btn-success shadow" data-toggle="collapse" href="#collapseExample" role="button"
                 aria-expanded="false" aria-controls="collapseExample" onclick="mudaNome($(this))">
                 Exibir Informações
             </a>
         </div>
     </div>
-    <div class="row pt-4 collapse" id="collapseExample">
+    <div class="row collapse" id="collapseExample">
         <div class="col-md-3">
             <div class="card border-info mx-sm-1 p-3">
                 <div class="card border-info shadow text-info p-3 my-card"><span class="fa fa-car"
                         aria-hidden="true"></span></div>
                 <div class="text-info text-center mt-3">
-                    <h4>Total Clientes</h4>
+                    <h4>{{isset($card1) ? $card1 : "Total"}}</h4>
                 </div>
                 <div class="text-info text-center mt-2">
-                    <h1>0</h1>
+                    <h1>{{isset($total) ? $total : 0}}</h1>
                 </div>
             </div>
         </div>
