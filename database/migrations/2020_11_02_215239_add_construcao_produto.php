@@ -90,11 +90,13 @@ class AddConstrucaoProduto extends Migration
 
 
             $table->float("margem_lucro", 4)->default(5);
-            $table->string("codigo_interno")->nullable();
-            $table->string("codigo_barras")->nullable();
             $table->float("preco_venda_atual", 4)->nullable();
+
             $table->string("modelo", 20)->nullable();
             $table->string("descricao", 100)->nullable();
+            $table->string("codigo_interno")->nullable();
+            $table->string("codigo_barras")->nullable();
+
             
         });
 

@@ -2,8 +2,6 @@
 @section('options_btn')@endsection
 @section('card_title', 'Novo Cliente')
 @section('content')
-    {{-- <div class="row"> --}}
-
 
         <form action="{{ !isset($cliente) ? route('cliente.novo') : route('cliente.editar',[$cliente->id]) }}" method="POST">
             

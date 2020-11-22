@@ -59,6 +59,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::group(['prefix' => 'produtos'], function () {
         Route::get("/", "ProdutoController@index")->name("Central Produtos");
+        Route::get("/novo", "ProdutoController@create")->name("produto.novo");
     });
 
 

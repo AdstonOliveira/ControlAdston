@@ -5,7 +5,7 @@
 @section('adicionais')
     <div class="col-md-12 col-sm-12">
         <div class="col-md-12 col-m-12">
-            <a href="{{ route('os.novo') }}" class="btn btn-primary">Nova OS</a>
+            <a href="{{ route('produto.novo') }}" class="btn btn-primary">Novo Produto</a>
         </div>
     </div>
 @endsection

@@ -4,9 +4,10 @@
 
 @section('adicionais')
 <div class="col-md-12 col-sm-12">
-    <div class="col-md-4    col-sm-12">
+    <div class="col-md-4 col-sm-12">
         <a href="{{ route('orcamento.novo') }}" class="btn btn-primary">Novo Orçamento</a>
     </div>
+    
 </div>
 @endsection
 

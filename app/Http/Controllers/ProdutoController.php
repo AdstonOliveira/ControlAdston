@@ -13,4 +13,8 @@ class ProdutoController extends Controller
 
         return view('produtos.main', compact('produtos'));
     }
+
+    public function create(){
+        return view('produtos.novo');
+    }
 }
