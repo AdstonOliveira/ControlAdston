@@ -38,6 +38,11 @@
                                 data-toggle="tooltip" data-placement="top" title="Editar cliente">
                                 <i class="fa fa-edit editar"></i>
                             </a>
+
+                            <a href="{{ route('cliente.detalhes', [$cliente->id]) }}" class="btn btn-sm botao"
+                                data-toggle="tooltip" data-placement="top" title="Detalhes do cliente">
+                                <i class="fa fa-eye text-success"></i>
+                            </a>
                             <form action="{{ route('cliente.delete', [$cliente->id]) }}" method="post" name="form_delete">
                                 @method("DELETE")
                                 {{ csrf_field() }}

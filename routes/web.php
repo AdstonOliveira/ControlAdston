@@ -34,6 +34,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get("editar/{id}", "ClienteController@show")->name("cliente.editar");
         Route::put("editar/{id}","CidadeController@update")->name("cliente.editar");
         Route::delete('delete/{id}', "ClienteController@destroy")->name("cliente.delete");
+        Route::get("detalhes/{id}","ClienteController@detalhes")->name("cliente.detalhes");
+
     });
 
     Route::group(['prefix' => 'os'], function () {
@@ -60,6 +62,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['prefix' => 'produtos'], function () {
         Route::get("/", "ProdutoController@index")->name("Central Produtos");
         Route::get("/novo", "ProdutoController@create")->name("produto.novo");
+        Route::post("/novo", "ProdutoController@store")->name("produto.novo");
     });
 
 

@@ -40,7 +40,7 @@
     </style>
     <div class="row col-md-12 col-sm-12 ml-auto">
 
-        <form action="#" method="post" enctype="multipart/form-data">
+        <form action="{{route('produto.novo')}}" method="post" enctype="multipart/form-data">
             {{ csrf_field() }}
 
             <div class="row justify-content-around">
@@ -51,13 +51,13 @@
                             class="img-fluid rounded shadow-sm mx-auto d-block" width="80%" height="60px">
                     </div>
                     <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
-                        <input id="upload" type="file" onchange="readURL(this);" class="form-control border-0">
-                        <label id="upload-label" for="upload" class="font-weight-light text-muted">Selecione</label>
-
+                        <input id="upload" type="file" name="foto" onchange="readURL(this);" class="form-control border-0">
+                        <label id="upload-label" for="upload" class="font-weight-light text-muted"></label>
+                        
                         <div class="input-group-append">
                             <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i
-                                    class="fa fa-cloud-upload mr-2 text-muted"></i><small
-                                    class="text-uppercase font-weight-bold text-muted">Choose file</small></label>
+                                class="fa fa-cloud-upload mr-2 text-muted"></i><small
+                                    class="text-uppercase font-weight-bold text-muted">Selecione</small></label>
                         </div>
                     </div>
 
@@ -68,7 +68,7 @@
                     <div class="row justify-content-around">
                         <div class="col-md-4 col-sm-12">
                             <label for="id">Id</label>
-                            <input type="text" name="id" id="id" class="form-control" disabled>
+                            <input type="text" name="id" id="id" class="form-control" placeholder="Gerado Automático" disabled>
                         </div>
 
                         <div class="col-md-8 col-sm-12">
@@ -81,12 +81,12 @@
                         <div class="col-md-6 col-sm-12">
                             <label for="marca">Marca</label>
 
-                            <div class="input-group mb-3">
+                            <div class="input-group">
                                 <select name="marca" id="marca" class="form-control">
                                     <option value="-1" disabled selected>-- Marca --</option>
                                 </select>
                                 <div class="input-group-append">
-                                    <button type="button" class="btn btn-success">+</button>
+                                    <button type="button" class="btn btn-primary">+</button>
                                     {{-- <span class="input-group-text" id="basic-addon2">+</span> --}}
                                 </div>
                             </div>
@@ -95,12 +95,12 @@
 
                         <div class="col-md-6 col-sm-12">
                             <label for="categoria">Categoria</label>
-                            <div class="input-group mb-3">
+                            <div class="input-group">
                                 <select name="categoria" id="categoria" class="form-control">
                                     <option value="-1" disabled selected>-- Categoria --</option>
                                 </select>
                                 <div class="input-group-append">
-                                    <button type="button" class="btn btn-success">+</button>
+                                    <button type="button" class="btn btn-primary">+</button>
                                 </div>
                             </div>
 
@@ -111,18 +111,15 @@
                     <div class="row pt-4">
                         <div class="col-md-6 col-sm-12">
                             <label for="modelo">Modelo</label>
-                            <input type="text" class="form-control" name="modelo" id="modelo">
+                            <input type="text" class="form-control" name="modelo" id="modelo" placeholder="Modelo do produto">
                         </div>
 
                         <div class="col-md-6 col-sm-12">
                             <label for="descricao">Descrição</label>
-                            <input type="text" class="form-control" name="descricao" id="descricao">
+                            <input type="text" class="form-control" name="descricao" id="descricao" placeholder="Breve Descrição. Ex: Cor, Tamanho ...">
                         </div>
 
                     </div>
-
-
-
                 </div>
             </div>
 
@@ -130,21 +127,21 @@
                 <div class="row">
                     <div class="col-md-4 col-sm-12">
                         <label for="codigo_interno">Codigo Interno</label>
-                        <input type="text" class="form-control" name="codigo_interno" id="codigo_interno">
+                        <input type="text" class="form-control" name="codigo_interno" id="codigo_interno" placeholder="Código do produto na sua Loja">
                     </div>
 
                     <div class="col-md-4 col-sm-12">
                         <label for="codigo_barras">Codigo Barras</label>
-                        <input type="text" class="form-control" name="codigo_barras" id="codigo_barras">
+                        <input type="text" class="form-control" name="codigo_barras" id="codigo_barras" placeholder="Código Barras">
                     </div>
 
                     <div class="col-md-2 col-sm-12">
                         <label for="preco_venda_atual">Preço Venda Atual</label>
-                        <input type="number" class="form-control" name="preco_venda_atual" id="preco_venda_atual">
+                        <input type="number" class="form-control" name="preco_venda_atual" id="preco_venda_atual" step="0.01" min="0">
                     </div>
                     <div class="col-md-2 col-sm-12">
                         <label for="margem_lucro">Margem Lucro</label>
-                        <input type="number" class="form-control" name="margem_lucro" id="margem_lucro">
+                        <input type="number" class="form-control" name="margem_lucro" id="margem_lucro" step="0.01" min="0">
                     </div>
 
                 </div>
@@ -156,9 +153,13 @@
                         <div class="input-group mb-3">
                             <select name="un_venda" id="un_venda" class="form-control">
                                 <option value="-1" disabled selected>-- UN VENDA --</option>
+                                @forelse($uns_venda as $un)
+                                    <option value="{{$un->id}}">{{$un->sigla}} - {{$un->UN}}</option>
+                                @empty
+                                @endforelse
                             </select>
                             <div class="input-group-append">
-                                <button type="button" class="btn btn-success">+</button>
+                                <button type="button" class="btn btn-primary">+</button>
                             </div>
                         </div>
                     </div>
@@ -167,9 +168,13 @@
                         <div class="input-group mb-3">
                             <select name="un_compra" id="un_compra" class="form-control">
                                 <option value="-1" disabled selected>-- UN COMPRA --</option>
+                                @forelse($uns_compra as $un)
+                                    <option value="{{$un->id}}">{{$un->sigla}} - {{$un->UN}}</option>
+                                @empty
+                                @endforelse
                             </select>
                             <div class="input-group-append">
-                                <button type="button" class="btn btn-success">+</button>
+                                <button type="button" class="btn btn-primary">+</button>
                             </div>
                         </div>
                     </div>
@@ -178,14 +183,23 @@
                         <div class="input-group mb-3">
                             <select name="un_estoque" id="un_estoque" class="form-control">
                                 <option value="-1" disabled selected>-- UN ESTOQUE --</option>
+                                @forelse($uns_estoque as $un)
+                                    <option value="{{$un->id}}">{{$un->sigla}} - {{$un->UN}}</option>
+                                @empty
+                                @endforelse
                             </select>
                             <div class="input-group-append">
-                                <button type="button" class="btn btn-success">+</button>
+                                <button type="button" class="btn btn-primary">+</button>
                             </div>
                         </div>
                     </div>
                 </div>
 
+            </div>
+            <div class="row justify-content-end pt-2">
+                <div class="col-md-4 col-sm-12">
+                    <button type="submit" class="btn btn-success w-100">Salvar</button>
+                </div>
             </div>
         </form>
     </div>

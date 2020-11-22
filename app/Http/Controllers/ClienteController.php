@@ -188,6 +188,9 @@ class ClienteController extends Controller
         return back()->with('success', "Cliente apagado");
     }
 
+    public function detalhes($cliente_id){
 
+        dd("Em desenvolvimento");
+    }
     
 }
