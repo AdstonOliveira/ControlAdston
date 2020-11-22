@@ -53,7 +53,12 @@
         .botao > .excluir{
             color: red;
         }
-
+        
+        #menus > .nav-item{
+            font-weight: 800;
+            text-shadow: 1px 1px 10px rgba(150, 150, 150, .6);
+            padding-left: 10px;
+        }
 
     </style>
     
@@ -67,15 +72,17 @@
 
         <main class="py-4">
             <div class="container justify-content-around">
-                <div class="row pb-2">
+
+                <div class="row pb-2" id="row_fade">
                     <div class="col-md-12 col-sm-12">
                         <div class="card card-body">
-                            <div class="col-md-12 col-m-12">
+                            <div class="col-md-12 col-m-12" id="opt_btn_div">
                                 @yield('options_btn')
                             </div>
                         </div>
                     </div>
                 </div>
+
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
@@ -125,6 +132,14 @@
     <script>
 
         $(document).ready(function(){
+
+            if( $("#opt_btn_div").html().trim().length == 0){
+                console.log("empty")
+                $("#row_fade").fadeOut()
+            }else{
+                console.log( $("#opt_btn_div").html().trim().length )
+            }
+
             if($("body").find(".table")){
                 $(".table").DataTable();
             }

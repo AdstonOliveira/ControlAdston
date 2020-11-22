@@ -38,7 +38,6 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::group(['prefix' => 'os'], function () {
         Route::get("/", "OrdemServicoController@index")->name("Central OS");
-        Route::get("lista", "OrdemServicoController@index")->name("os");
         Route::get("novo", "OrdemServicoController@create")->name("os.novo");
         Route::post("novo", "OrdemServicoController@store")->name("os.novo");
         Route::get("edit/{id}", "OrdemServicoController@edit")->name("os.edit");
@@ -49,12 +48,17 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
     Route::group(['prefix' => 'admin'], function () {
-        Route::get('/',"DividaController@index")->name("admin");
+        Route::get('/',"DividaController@index")->name("Central Financeiro");
         Route::get('pagar/novo',"DividaController@create")->name("admin.divida.novo");
     });
 
     Route::group(['prefix' => 'vendas'], function () {
+        Route::get("/", "OrcamentoController@index")->name("Central Vendas");
         Route::get("novo", "OrcamentoController@create")->name("orcamento.novo");
+    });
+
+    Route::group(['prefix' => 'produtos'], function () {
+        Route::get("/", "ProdutoController@index")->name("Central Produtos");
     });
 
 

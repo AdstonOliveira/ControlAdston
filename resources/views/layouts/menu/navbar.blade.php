@@ -12,34 +12,15 @@
         @else
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
-            <ul class="navbar-nav mr-auto">
+            <ul class="navbar-nav m-auto" id="menus">
                 {{-- Add itens aqui --}}
                 @include('layouts.menu.includes.clientes_options')
 
                 @include('layouts.menu.includes.financeiro_opt')
 
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarProdutos" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Produtos
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarProdutos">
-                        <a class="dropdown-item" href="#">Gerenciar Produtos</a>
-                        <a class="dropdown-item" href="#">Gerenciar Estoque</a>
-                        <a class="dropdown-item" href="#">Compras</a>
-                    </div>
-                </li>
+                @include('layouts.menu.includes.produtos_options')
 
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="NavbarVendas" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Vendas
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="NavbarVendas">
-                        <a class="dropdown-item" href="{{route('orcamento.novo')}}">Vender</a>
-                        <a class="dropdown-item" href="#">Histórico</a>
-                    </div>
-                </li>
+                @include('layouts.menu.includes.vendas_options')
 
                 @include('layouts.menu.includes.os_options')
 

@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class DividaController extends Controller
 {
     public function index(){
-        return view('financeiro.lista');
+        return view('financeiro.main');
     }
 
     public function create(){
