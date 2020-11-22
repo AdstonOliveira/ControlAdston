@@ -30,7 +30,8 @@ class ClienteController extends Controller
     {
         $clientes = Cliente::all();
 
-        return view("cliente.lista", compact('clientes'));
+
+        return view("cliente.main", compact('clientes'));
     }
 
     /**

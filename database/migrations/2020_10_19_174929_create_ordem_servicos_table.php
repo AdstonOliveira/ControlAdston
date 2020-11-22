@@ -24,7 +24,7 @@ class CreateOrdemServicosTable extends Migration
             $table->integer('tipo_defeito')->unsigned()->nullable();
             $table->foreign("tipo_defeito")->references("id")->on("tipo_defeitos")->onUpdate("CASCADE")->onDelete("NO ACTION");
 
-            $table->integer('orcamento_id')->unsigned()->nullable();
+            // $table->integer('orcamento_id')->unsigned()->nullable();
             
             $table->text("defeito")->nullable();
             $table->text("solucao")->nullable();

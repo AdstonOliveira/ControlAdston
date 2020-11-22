@@ -1,12 +1,17 @@
-<li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" id="dropdowncliente" role="button" data-toggle="dropdown"
+<li class="nav-item">
+    {{-- <a class="nav-link dropdown-toggle" href="{{route('Central Clientes')}}" id="dropdowncliente" role="button" data-toggle="dropdown"
         aria-haspopup="true" aria-expanded="false">
-        Clientes
+        Central Clientes
+    </a> --}}
+    <a class="nav-link" href="{{route('Central Clientes')}}">
+        Central Clientes
     </a>
 
-    <div class="dropdown-menu" aria-labelledby="dropdowncliente">
+    {{-- <div class="dropdown-menu" aria-labelledby="dropdowncliente">
         <a class="dropdown-item" href="{{ route('cliente.novo') }}">Novo cliente</a>
         <a class="dropdown-item" href="{{ route('cliente.lista') }}">Lista Cliente</a>
         <a class="dropdown-item" href="#">Gerencial</a>
-    </div>
+        <a class="dropdown-item" href="#">Central Clientes</a>
+        
+    </div> --}}
 </li>
